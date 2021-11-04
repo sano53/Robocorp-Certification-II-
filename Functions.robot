@@ -12,8 +12,16 @@ Library         RPA.Archive
 Library         RPA.HTTP
 Library         RPA.Robocloud.Secrets
 Library         RPA.FileSystem
-
+Library         RPA.Dialogs
+Library           RPA.JSON
 *** Keywords ***
+Get Credential From End User
+    Add heading    Get User Credentials
+    Add text input    username    label=Username
+    Add text input    password  label=Password
+    ${dialog}=    Run dialog
+    &{Credential}=    Create dictionary      username=${dialog.username}  password=${dialog.password}
+    Save JSON to file    ${Credential}    valut.json
 Emtpty Directory
     # Bot has to empty the directory if exist
     Remove File  ${Order_Csv_Path}
