@@ -14,7 +14,20 @@ Library         RPA.Robocloud.Secrets
 Library         RPA.FileSystem
 Library         RPA.Dialogs
 Library           RPA.JSON
+Library    Collections
 *** Keywords ***
+Get Credential From End User
+    Add heading    Get User Credentials
+    Add text input    username    label=Username
+    Add text input    password  label=Password
+    ${dialog}=    Run dialog
+    ${vault}=  Load JSON from file  vault.json
+    set to dictionary    ${vault["credentials"]}    username=${dialog.username}
+    set to dictionary    ${vault["credentials"]}    password=${dialog.password}
+    ${json_new}=      evaluate        json.dumps(${vault})                 json
+    Save JSON to file    ${json_new}    vault.json
+
+
 Emtpty Directory
     # Bot has to empty the directory if exist
     Remove File  ${Order_Csv_Path}
@@ -89,5 +102,3 @@ Creating the PDF files
     @{files}=       Create List     ${Images_Path}${/}${Image}
     Add Files To PDF    ${files}    ${PDF_Path}${/}${PDF}     ${True}
     Close PDF           ${PDF_Path}${/}${PDF}
-
-
