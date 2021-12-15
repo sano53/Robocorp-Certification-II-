@@ -8,7 +8,6 @@ Resource        Functions.robot
 *** Tasks ***
 Main task
     Emtpty Directory
-    #Get Credential From End User           #Here is the change required
     Check PDF And Image Directory Existance
     ${Data}  Download and Get Data From CSV
     Bot Creation and Generation Of Receipts  ${Data}
