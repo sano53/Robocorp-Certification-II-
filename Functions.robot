@@ -29,21 +29,18 @@ Emtpty Directory
     Run keyword if  '${chk}'=='True'  Remove Directory  ${PDF_Path}  recursive=True
     ${chk}=  Does Directory Exist  ${Images_Path}
     Run keyword if  '${chk}'=='True'  Remove Directory  ${Images_Path}  recursive=True
-
 Check PDF And Image Directory Existance
     # Bot will check if PDF_Path directory and Images_Path directory exist, If exist then skip else then create the Directories
     ${chk}=  Does Directory Exist  ${PDF_Path}
     Run keyword if  '${chk}'=='False'  Create Directory  ${PDF_Path}
     ${chk}=  Does Directory Exist  ${Images_Path}
     Run keyword if  '${chk}'=='False'  Create Directory  ${Images_Path}
-
 Download and Get Data From CSV
     # read the csv file and return the table.
     Download  ${Csv_Url}  ${Order_Csv}
     sleep  2s
     ${Data}  Read Table from Csv  ${Order_Csv}  header=True
     Return From Keyword  ${Data}
-
 Server Error Handling
     # In This piece of code Bot will handle the error which may occure during the process
     FOR  ${i}  IN RANGE  15
@@ -52,7 +49,6 @@ Server Error Handling
             Exit For Loop If  '${status}'=='False'
     END
     Run Keyword If  '${status}'=='True'  Close Browser      #If error still exist after multiple itration
-
 Bot Creation and Generation Of Receipts
     [Arguments]  ${Data}
     Open Available Browser  ${Portal_link}
@@ -100,3 +96,5 @@ Creating the PDF files
     @{files}=       Create List     ${Images_Path}${/}${Image}
     Add Files To PDF    ${files}    ${PDF_Path}${/}${PDF}     ${True}
     Close PDF           ${PDF_Path}${/}${PDF}
+
+
